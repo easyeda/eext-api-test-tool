@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>CSV Import and Export</title>
+		<style>
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			table,
+			th,
+			td {
+				border: 1px solid black;
+			}
+			th,
+			td {
+				padding: 8px;
+				text-align: left;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="file" id="csvInput" accept=".csv" onchange="handleFiles(this.files)" />
+
+		<script>
+			function handleFiles(files) {
+				if (files.length > 0) {
+					var file = files[0];
+					var reader = new FileReader();
+					reader.onload = function (e) {
+						var data = e.target.result;
+						var rows = data.split(/\r\n|\n/);
+						// 跳过空行
+						var filteredData = [];
+						var headers = {};
+						var headerIndex = 0;
+
+						rows.forEach((row, index) => {
+							if (row.trim() === '') return;
+							if (index === 0) {
+								var titles = row.split(',');
+								titles.forEach((title, idx) => {
+									headers[title.trim()] = idx;
+								});
+								return;
+							}
+							var cells = row.split(',');
+							if (cells.length <= 1) return;
+
+							var className = cells[headers['类名（枚举名、接口名、类型名）']];
+							var methodName = cells[headers['方法名（枚举成员、对象签名）']];
+
+							if (className && methodName) {
+								filteredData.push([className, methodName].join(','));
+							}
+						});
+
+						if (filteredData.length === 0) {
+							alert('CSV file does not contain the required columns.');
+							return;
+						}
+
+						// Create a new CSV file
+						var blob = new Blob([filteredData.join('\n')], { type: 'text/csv;charset=utf-8;' });
+						var url = URL.createObjectURL(blob);
+						var a = document.createElement('a');
+						a.href = url;
+						a.download = 'extracted.csv';
+						a.click();
+					};
+					reader.readAsText(file);
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,82 @@
+{
+	"name": "api-test-tool",
+	"uuid": "356c3181991b4a0db8a9ac0fa833f39d",
+	"displayName": "接口测试工具",
+	"description": "用于拓展API测试的工具",
+	"version": "1.0.3",
+	"publisher": "JLCEDA <support@lceda.cn>",
+	"engines": {
+		"eda": "^2.2.32"
+	},
+	"license": "MIT License",
+	"repository": {
+		"type": "extension-store",
+		"url": ""
+	},
+	"categories": "Other",
+	"keywords": ["SDK"],
+	"images": {
+		"logo": "./images/logo.png"
+	},
+	"homepage": "https://pro.lceda.cn",
+	"bugs": "https://lceda.cn/page/feedback?originPage=other",
+	"activationEvents": {},
+	"entry": "./dist/index",
+	"dependentExtensions": {},
+	"headerMenus": {
+		"home": [
+			{
+				"id": "apiTest",
+				"title": "测试",
+				"menuItems": [
+					{
+						"id": "apiTestIframe",
+						"title": "接口测试",
+						"registerFn": "iframeApiTest"
+					},
+					{
+						"id": "About",
+						"title": "关于...",
+						"registerFn": "about"
+					}
+				]
+			}
+		],
+		"sch": [
+			{
+				"id": "apiTest",
+				"title": "测试",
+				"menuItems": [
+					{
+						"id": "apiTestIframe",
+						"title": "接口测试",
+						"registerFn": "iframeApiTest"
+					},
+					{
+						"id": "About",
+						"title": "关于...",
+						"registerFn": "about"
+					}
+				]
+			}
+		],
+		"pcb": [
+			{
+				"id": "apiTest",
+				"title": "测试",
+				"menuItems": [
+					{
+						"id": "apiTestIframe",
+						"title": "接口测试",
+						"registerFn": "iframeApiTest"
+					},
+					{
+						"id": "About",
+						"title": "关于...",
+						"registerFn": "about"
+					}
+				]
+			}
+		]
+	}
+}
